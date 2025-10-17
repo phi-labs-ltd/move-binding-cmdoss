@@ -1,13 +1,30 @@
 use crate::package_id_resolver::PackageIdResolver;
 use crate::SuiNetwork;
 use fastcrypto::encoding::{Base64, Encoding};
-use move_binary_format::normalized::Module;
+use move_binary_format::normalized::{Module, StringPool};
 use move_binary_format::CompiledModule;
 use move_core_types::account_address::AccountAddress;
+use move_core_types::identifier::{IdentStr, Identifier};
 use reqwest::header::CONTENT_TYPE;
 use serde_json::{json, Value};
 use std::collections::{BTreeMap, HashMap};
 use std::str::FromStr;
+
+// Simple string pool implementation that uses Identifier directly
+#[derive(Default)]
+struct SimpleStringPool;
+
+impl StringPool for SimpleStringPool {
+    type String = Identifier;
+
+    fn intern(&mut self, s: &IdentStr) -> Self::String {
+        s.to_owned()
+    }
+
+    fn as_ident_str<'a>(&'a self, s: &'a Self::String) -> &'a IdentStr {
+        s.as_ident_str()
+    }
+}
 
 pub trait ModuleProvider {
     fn get_package(&self, package_id: &str) -> Result<Package, anyhow::Error>;
@@ -51,7 +68,8 @@ impl ModuleProvider for MoveModuleProvider {
             .iter()
             .map(|(name, bytes)| {
                 let module = CompiledModule::deserialize_with_defaults(bytes)?;
-                let normalized = Module::new(&module);
+                let mut pool = SimpleStringPool::default();
+                let normalized = Module::new(&mut pool, &module, false);
                 Ok::<_, anyhow::Error>((name.clone(), normalized))
             })
             .collect::<Result<_, _>>()?;
@@ -84,7 +102,7 @@ impl ModuleProvider for MoveModuleProvider {
 }
 
 pub struct Package {
-    pub module_map: BTreeMap<String, Module>,
+    pub module_map: BTreeMap<String, Module<Identifier>>,
     pub type_origin_table: HashMap<String, HashMap<String, AccountAddress>>,
     pub version: u64,
 }

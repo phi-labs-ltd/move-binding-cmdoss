@@ -2,6 +2,7 @@ use crate::package_provider::{ModuleProvider, MoveModuleProvider};
 use crate::types::ToRustType;
 use crate::SuiNetwork;
 use anyhow::anyhow;
+use indexmap::IndexMap;
 use itertools::Itertools;
 use move_binary_format::normalized::{Enum, Function, Struct, Type};
 use move_core_types::account_address::AccountAddress;
@@ -9,7 +10,8 @@ use move_core_types::identifier::Identifier;
 use once_cell::sync::Lazy;
 use proc_macro2::{Ident, TokenStream};
 use quote::quote;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::HashMap;
+use std::rc::Rc;
 use std::sync::RwLock;
 
 pub static BINDING_REGISTRY: Lazy<RwLock<HashMap<AccountAddress, String>>> =
@@ -60,7 +62,7 @@ impl MoveCodegen {
                 Ok::<_, anyhow::Error>(if struct_fun_tokens.is_empty() {
                     quote! {}
                 } else {
-                    let addr_byte_ident = module.address.to_vec();
+                    let addr_byte_ident = module.id.address.to_vec();
                     quote! {
                         pub mod #module_ident{
                             use std::str::FromStr;
@@ -88,7 +90,7 @@ impl MoveCodegen {
     }
 
     fn create_structs(
-        structs: &BTreeMap<Identifier, Struct>,
+        structs: &IndexMap<Identifier, Rc<Struct<Identifier>>>,
         type_origin_ids: &HashMap<String, AccountAddress>,
     ) -> Result<Vec<TokenStream>, anyhow::Error> {
         structs
@@ -101,7 +103,7 @@ impl MoveCodegen {
 
     fn create_struct(
         struct_name: &str,
-        move_struct: &Struct,
+        move_struct: &Struct<Identifier>,
         type_origin_id: &HashMap<String, AccountAddress>,
     ) -> Result<TokenStream, anyhow::Error> {
         let (type_parameters, phantoms) = move_struct.type_parameters.iter().enumerate().fold(
@@ -124,10 +126,11 @@ impl MoveCodegen {
         let struct_ident = Ident::new(&struct_name.to_string(), proc_macro2::Span::call_site());
         let field_tokens = move_struct
             .fields
+            .0
             .iter()
-            .map(|field| {
+            .map(|(field_name, field)| {
                 let field_ident = Ident::new(
-                    &escape_keyword(field.name.as_str()),
+                    &escape_keyword(field_name.as_str()),
                     proc_macro2::Span::call_site(),
                 );
                 let field_type: syn::Type = syn::parse_str(&field.type_.to_rust_type())?;
@@ -172,7 +175,7 @@ impl MoveCodegen {
     }
 
     fn create_enums(
-        enums: &BTreeMap<Identifier, Enum>,
+        enums: &IndexMap<Identifier, Rc<Enum<Identifier>>>,
         type_origin_ids: &HashMap<String, AccountAddress>,
     ) -> Vec<TokenStream> {
         enums
@@ -183,7 +186,7 @@ impl MoveCodegen {
 
     fn create_enum(
         enum_name: &str,
-        move_enum: &Enum,
+        move_enum: &Enum<Identifier>,
         type_origin_id: &HashMap<String, AccountAddress>,
     ) -> TokenStream {
         let type_parameters: Vec<_> = move_enum
@@ -200,23 +203,24 @@ impl MoveCodegen {
         let variant_tokens: Vec<_> = move_enum
             .variants
             .iter()
-            .map(|variant| {
+            .map(|(variant_name, variant)| {
                 let variant_ident = Ident::new(
-                    &escape_keyword(variant.name.as_str()),
+                    &escape_keyword(variant_name.as_str()),
                     proc_macro2::Span::call_site(),
                 );
 
-                if variant.fields.is_empty() {
+                if variant.fields.0.is_empty() {
                     return quote! {#variant_ident,};
                 }
 
                 if variant
                     .fields
+                    .0
                     .iter()
                     .enumerate()
-                    .all(|(i, field)| field.name.to_string() == format!("pos{}", i))
+                    .all(|(i, (field_name, _))| field_name.to_string() == format!("pos{}", i))
                 {
-                    let field_types = variant.fields.iter().map(|field| {
+                    let field_types = variant.fields.0.iter().map(|(_, field)| {
                         let field_type: syn::Type =
                             syn::parse_str(&field.type_.to_rust_type()).unwrap();
                         quote! {#field_type,}
@@ -227,9 +231,9 @@ impl MoveCodegen {
                     };
                 }
 
-                let field_tokens = variant.fields.iter().map(|field| {
+                let field_tokens = variant.fields.0.iter().map(|(field_name, field)| {
                     let field_ident = Ident::new(
-                        &escape_keyword(field.name.as_str()),
+                        &escape_keyword(field_name.as_str()),
                         proc_macro2::Span::call_site(),
                     );
                     let field_type: syn::Type =
@@ -274,25 +278,26 @@ impl MoveCodegen {
         }
     }
 
-    fn create_funs(funs: &BTreeMap<Identifier, Function>) -> Vec<TokenStream> {
+    fn create_funs(funs: &IndexMap<Identifier, Rc<Function<Identifier>>>) -> Vec<TokenStream> {
         funs.iter()
             .flat_map(|(name, fun)| Self::create_fun(name.as_str(), fun))
             .collect()
     }
 
-    fn create_fun(fun_name: &str, fun: &Function) -> Option<TokenStream> {
+    fn create_fun(fun_name: &str, fun: &Function<Identifier>) -> Option<TokenStream> {
         let (param_names, mut params, need_lifetime) = fun.parameters
             .iter()
             .enumerate()
             .fold((vec![], vec![], false), |(mut param_names, mut params, mut lifetime), (i, move_type)| {
                 let field_ident = Ident::new(&format!("p{i}"), proc_macro2::Span::call_site());
                 lifetime = lifetime || move_type.is_ref();
-                match &move_type {
-                    Type::Reference(r) |
-                    Type::MutableReference(r) => {
+                match &**move_type {
+                    Type::Reference(_is_mut, r) => {
                         // filter out TxContext
-                        if matches!(&**r, Type::Struct{address, name, ..} if address == &AccountAddress::TWO && name.as_str() == "TxContext") {
-                            return (param_names, params, lifetime);
+                        if let Type::Datatype(datatype) = &**r {
+                            if datatype.module.address == AccountAddress::TWO && datatype.name.as_str() == "TxContext" {
+                                return (param_names, params, lifetime);
+                            }
                         }
                     }
                     _ => {}
