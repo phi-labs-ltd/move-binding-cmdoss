@@ -1,7 +1,7 @@
 use crate::bridge::bridge::BridgeInner;
 use crate::sui::dynamic_field::Field;
 use move_binding_derive::move_contract;
-use move_types::{Key, ObjectId};
+use move_types::Key;
 use std::str::FromStr;
 use sui_client::Client;
 use sui_sdk_types::{Address, ObjectData};
@@ -58,10 +58,9 @@ pub async fn test_function_call() {
     let client = Client::new("https://sui-mainnet.mystenlabs.com/graphql").unwrap();
 
     let owner = Address::from_str("0x2").unwrap();
-    let gas =
-        ObjectId::from("0x726b714a3c4c681d8a9b1ff1833ad368585579a273362e1cbd738c0c8f70dabd")
-            .unwrap();
-    let gas = client.object(gas.into(), None).await.unwrap().unwrap();
+    let gas = Address::from_str("0x726b714a3c4c681d8a9b1ff1833ad368585579a273362e1cbd738c0c8f70dabd")
+        .unwrap();
+    let gas = client.object(gas, None).await.unwrap().unwrap();
 
     let mut builder = TransactionBuilder::new();
     builder.set_sender(owner);
