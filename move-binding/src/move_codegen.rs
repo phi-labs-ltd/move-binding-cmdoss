@@ -186,44 +186,59 @@ impl MoveCodegen {
         move_enum: &Enum,
         type_origin_id: &HashMap<String, AccountAddress>,
     ) -> TokenStream {
+        let type_parameters: Vec<_> = move_enum
+            .type_parameters
+            .iter()
+            .enumerate()
+            .map(|(i, _)| {
+                let ident = Ident::new(&format!("T{i}"), proc_macro2::Span::call_site());
+                quote! {#ident}
+            })
+            .collect();
+
         let enum_ident = Ident::new(&enum_name.to_string(), proc_macro2::Span::call_site());
-        let variant_tokens = move_enum.variants.iter().map(|variant| {
-            let variant_ident = Ident::new(
-                &escape_keyword(variant.name.as_str()),
-                proc_macro2::Span::call_site(),
-            );
-
-            if variant.fields.is_empty() {
-                return quote! {#variant_ident,};
-            }
-
-            if variant
-                .fields
-                .iter()
-                .enumerate()
-                .all(|(i, field)| field.name.to_string() == format!("pos{}", i))
-            {
-                let field_types = variant.fields.iter().map(|field| {
-                    let field_type: syn::Type =
-                        syn::parse_str(&field.type_.to_rust_type()).unwrap();
-                    quote! {#field_type,}
-                });
-
-                return quote! {
-                    #variant_ident(#(#field_types)*),
-                };
-            }
-
-            let field_tokens = variant.fields.iter().map(|field| {
-                let field_ident = Ident::new(
-                    &escape_keyword(field.name.as_str()),
+        let variant_tokens: Vec<_> = move_enum
+            .variants
+            .iter()
+            .map(|variant| {
+                let variant_ident = Ident::new(
+                    &escape_keyword(variant.name.as_str()),
                     proc_macro2::Span::call_site(),
                 );
-                let field_type: syn::Type = syn::parse_str(&field.type_.to_rust_type()).unwrap();
-                quote! {#field_ident: #field_type,}
-            });
-            quote! { #variant_ident {#(#field_tokens)*},}
-        });
+
+                if variant.fields.is_empty() {
+                    return quote! {#variant_ident,};
+                }
+
+                if variant
+                    .fields
+                    .iter()
+                    .enumerate()
+                    .all(|(i, field)| field.name.to_string() == format!("pos{}", i))
+                {
+                    let field_types = variant.fields.iter().map(|field| {
+                        let field_type: syn::Type =
+                            syn::parse_str(&field.type_.to_rust_type()).unwrap();
+                        quote! {#field_type,}
+                    });
+
+                    return quote! {
+                        #variant_ident(#(#field_types)*),
+                    };
+                }
+
+                let field_tokens = variant.fields.iter().map(|field| {
+                    let field_ident = Ident::new(
+                        &escape_keyword(field.name.as_str()),
+                        proc_macro2::Span::call_site(),
+                    );
+                    let field_type: syn::Type =
+                        syn::parse_str(&field.type_.to_rust_type()).unwrap();
+                    quote! {#field_ident: #field_type,}
+                });
+                quote! { #variant_ident {#(#field_tokens)*},}
+            })
+            .collect();
 
         let derives = vec![
             quote! {serde::Deserialize},
@@ -234,14 +249,27 @@ impl MoveCodegen {
 
         let addr_byte_ident = type_origin_id[enum_name].to_vec();
 
-        quote! {
-            #[derive(#(#derives),*)]
-            pub enum #enum_ident{
-                #(#variant_tokens)*
-            }
+        if type_parameters.is_empty() {
+            quote! {
+                #[derive(#(#derives),*)]
+                pub enum #enum_ident{
+                    #(#variant_tokens)*
+                }
 
-            impl #enum_ident{
-                pub const TYPE_ORIGIN_ID: Address = Address::new([#(#addr_byte_ident),*]);
+                impl #enum_ident{
+                    pub const TYPE_ORIGIN_ID: Address = Address::new([#(#addr_byte_ident),*]);
+                }
+            }
+        } else {
+            quote! {
+                #[derive(#(#derives),*)]
+                pub enum #enum_ident<#(#type_parameters),*> {
+                    #(#variant_tokens)*
+                }
+
+                impl <#(#type_parameters),*> #enum_ident<#(#type_parameters),*>{
+                    pub const TYPE_ORIGIN_ID: Address = Address::new([#(#addr_byte_ident),*]);
+                }
             }
         }
     }

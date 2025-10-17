@@ -76,12 +76,12 @@ fn try_resolve_known_types(_type: &Type) -> String {
             _ => {
                 let cache = BINDING_REGISTRY.read().unwrap();
 
-                let package_path =  cache.get(address).cloned();
+                let package_path = cache.get(address).cloned();
                 drop(cache); // Release read lock
 
-                let type_ = if let Some(package_path) = package_path{
+                let type_ = if let Some(package_path) = package_path {
                     format!("{package_path}::{module}::{name}")
-                }else{
+                } else {
                     format!("{module}::{name}")
                 };
 

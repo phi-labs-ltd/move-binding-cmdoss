@@ -1,13 +1,20 @@
 pub mod functions;
 
 pub use move_core_types::u256::U256;
+use serde::Deserialize;
 use serde::Serialize;
+use std::fmt;
 use std::str::FromStr;
 pub use sui_sdk_types::Address;
 pub use sui_sdk_types::Identifier;
-pub use sui_sdk_types::ObjectId;
 pub use sui_sdk_types::StructTag;
 pub use sui_sdk_types::TypeTag;
+
+// ObjectId is now just an Address in sui-sdk-types, but we wrap it in a newtype
+// to maintain the correct MoveType implementation (0x2::object::UID)
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct ObjectId(pub Address);
 
 pub const MOVE_STDLIB: Address = {
     let mut address = [0u8; 32];
@@ -73,6 +80,7 @@ impl MoveType for bool {
         TypeTag::Bool
     }
 }
+
 impl MoveType for ObjectId {
     fn type_() -> TypeTag {
         TypeTag::Struct(Box::new(StructTag {
@@ -120,4 +128,22 @@ impl<T: MoveType> MoveType for Vec<T> {
 
 pub trait Key: MoveStruct {
     fn id(&self) -> &ObjectId;
+}
+
+impl fmt::Display for ObjectId {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.0.to_string())
+    }
+}
+
+impl From<Address> for ObjectId {
+    fn from(address: Address) -> Self {
+        ObjectId(address)
+    }
+}
+
+impl Into<Address> for ObjectId {
+    fn into(self) -> Address {
+        self.0
+    }
 }

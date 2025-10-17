@@ -9,3 +9,9 @@ members = [
 
 [workspace.dependencies]
 serde = "1.0.217"
+thiserror = "2.0.17"
+sui-sdk-types = { git = "https://github.com/mystenlabs/sui-rust-sdk", features = ["serde"], rev="048124e484f14b9bf2a402227c9bc255c7621bc1" }
+sui-transaction-builder = { git = "https://github.com/mystenlabs/sui-rust-sdk", rev="048124e484f14b9bf2a402227c9bc255c7621bc1" }
+sui-client = { git = "https://github.com/mystenlabs/sui-rust-sdk", package = "sui-graphql-client", rev="048124e484f14b9bf2a402227c9bc255c7621bc1"}
+move-core-types = { git = "https://github.com/MystenLabs/sui.git", rev = "42ba6c0" }
+move-binary-format = { git = "https://github.com/MystenLabs/sui.git", rev = "42ba6c0" }
