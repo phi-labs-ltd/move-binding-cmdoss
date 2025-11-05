@@ -59,8 +59,19 @@ impl ModuleProvider for MoveModuleProvider {
             .expect("Error fetching package from Sui GQL.");
 
         let value = res.json::<Value>().unwrap();
+
+        // Check if package exists
+        if value["data"]["package"].is_null() {
+            return Err(anyhow::anyhow!(
+                "Package {} not found on {}. The package may not exist or has been removed.",
+                package_id,
+                self.network.gql()
+            ));
+        }
+
         let module_bcs: String =
-            serde_json::from_value(value["data"]["package"]["moduleBcs"].clone()).unwrap();
+            serde_json::from_value(value["data"]["package"]["moduleBcs"].clone())
+                .map_err(|e| anyhow::anyhow!("Failed to parse moduleBcs for package {}: {}. Response: {:?}", package_id, e, value))?;
         let module_bytes = Base64::decode(&module_bcs).unwrap();
         let module_map: BTreeMap<String, Vec<u8>> = bcs::from_bytes(&module_bytes).unwrap();
 
@@ -80,13 +91,19 @@ impl ModuleProvider for MoveModuleProvider {
         let type_origin_table = type_origin_table.iter().fold(
             HashMap::new(),
             |mut results: HashMap<String, HashMap<String, AccountAddress>>, v| {
-                let module = v["module"].as_str().unwrap();
-                let struct_ = v["struct"].as_str().unwrap();
-                let defining_id = v["definingId"].as_str().unwrap();
-                results.entry(module.to_string()).or_default().insert(
-                    struct_.to_string(),
-                    AccountAddress::from_str(defining_id).unwrap(),
-                );
+                // Skip entries with null values
+                if let (Some(module), Some(struct_), Some(defining_id)) = (
+                    v["module"].as_str(),
+                    v["struct"].as_str(),
+                    v["definingId"].as_str(),
+                ) {
+                    if let Ok(addr) = AccountAddress::from_str(defining_id) {
+                        results.entry(module.to_string()).or_default().insert(
+                            struct_.to_string(),
+                            addr,
+                        );
+                    }
+                }
                 results
             },
         );
