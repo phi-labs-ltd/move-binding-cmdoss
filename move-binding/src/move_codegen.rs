@@ -364,8 +364,7 @@ impl MoveCodegen {
                         PACKAGE_ID,
                         Identifier::from_str(MODULE_NAME).unwrap(),
                         Identifier::from_str(#fun_name).unwrap(),
-                        vec![#(#types::type_()),*],
-                    ),
+                    ).with_type_args(vec![#(#types::type_()),*]),
                     vec![#(#param_names.into()),*],
                 )
                 #maybe_into

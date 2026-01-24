@@ -12,4 +12,3 @@ sui-sdk-types.workspace = true
 sui-transaction-builder.workspace = true
 move-core-types.workspace = true
 thiserror.workspace = true
-sui-client.workspace = true

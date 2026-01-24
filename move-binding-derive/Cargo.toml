@@ -24,4 +24,7 @@ thiserror.workspace = true
 
 [dev-dependencies]
 tokio = { version = "1.43.0", features = ["full"] }
-sui-client.workspace = true
+serde_json = "1.0"
+sui-graphql.workspace = true
+sui-graphql-macros.workspace = true
+sui-rpc.workspace = true

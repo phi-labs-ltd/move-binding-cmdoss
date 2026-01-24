@@ -58,12 +58,12 @@ pub fn move_struct_derive(input: TokenStream) -> TokenStream {
         quote! {
             impl move_types::MoveStruct for #name {
                 fn struct_type() -> move_types::StructTag {
-                    move_types::StructTag {
-                        address: Self::TYPE_ORIGIN_ID,
-                        module: move_types::Identifier::from_str(MODULE_NAME).unwrap(),
-                        name: move_types::Identifier::from_str(#name_str).unwrap(),
-                        type_params: vec![],
-                    }
+                    move_types::StructTag::new(
+                        Self::TYPE_ORIGIN_ID,
+                        move_types::Identifier::from_str(MODULE_NAME).unwrap(),
+                        move_types::Identifier::from_str(#name_str).unwrap(),
+                        vec![],
+                    )
                 }
             }
         }
@@ -71,12 +71,12 @@ pub fn move_struct_derive(input: TokenStream) -> TokenStream {
         quote! {
             impl <#(#types:move_types::MoveType), *> move_types::MoveStruct for #name<#(#types),*> {
                 fn struct_type() -> move_types::StructTag {
-                    move_types::StructTag {
-                        address: Self::TYPE_ORIGIN_ID,
-                        module: move_types::Identifier::from_str(MODULE_NAME).unwrap(),
-                        name: move_types::Identifier::from_str(#name_str).unwrap(),
-                        type_params: vec![#(#types::type_()),*],
-                    }
+                    move_types::StructTag::new(
+                        Self::TYPE_ORIGIN_ID,
+                        move_types::Identifier::from_str(MODULE_NAME).unwrap(),
+                        move_types::Identifier::from_str(#name_str).unwrap(),
+                        vec![#(#types::type_()),*],
+                    )
                 }
             }
         }

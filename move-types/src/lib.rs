@@ -83,23 +83,23 @@ impl MoveType for bool {
 
 impl MoveType for ObjectId {
     fn type_() -> TypeTag {
-        TypeTag::Struct(Box::new(StructTag {
-            address: Address::TWO,
-            module: Identifier::from_str("object").unwrap(),
-            name: Identifier::from_str("UID").unwrap(),
-            type_params: vec![],
-        }))
+        TypeTag::Struct(Box::new(StructTag::new(
+            Address::TWO,
+            Identifier::from_str("object").unwrap(),
+            Identifier::from_str("UID").unwrap(),
+            vec![],
+        )))
     }
 }
 
 impl MoveType for String {
     fn type_() -> TypeTag {
-        TypeTag::Struct(Box::new(StructTag {
-            address: MOVE_STDLIB,
-            module: Identifier::from_str("string").unwrap(),
-            name: Identifier::from_str("String").unwrap(),
-            type_params: vec![],
-        }))
+        TypeTag::Struct(Box::new(StructTag::new(
+            MOVE_STDLIB,
+            Identifier::from_str("string").unwrap(),
+            Identifier::from_str("String").unwrap(),
+            vec![],
+        )))
     }
 }
 
@@ -111,12 +111,12 @@ impl MoveType for &str {
 
 impl<T: MoveType> MoveType for Option<T> {
     fn type_() -> TypeTag {
-        TypeTag::Struct(Box::new(StructTag {
-            address: MOVE_STDLIB,
-            module: Identifier::from_str("option").unwrap(),
-            name: Identifier::from_str("Option").unwrap(),
-            type_params: vec![T::type_()],
-        }))
+        TypeTag::Struct(Box::new(StructTag::new(
+            MOVE_STDLIB,
+            Identifier::from_str("option").unwrap(),
+            Identifier::from_str("Option").unwrap(),
+            vec![T::type_()],
+        )))
     }
 }
 

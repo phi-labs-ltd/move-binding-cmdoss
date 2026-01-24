@@ -1,8 +1,7 @@
 use crate::MoveType;
 use serde::Serialize;
-use sui_sdk_types::Argument;
-use sui_transaction_builder::unresolved::Input;
-use sui_transaction_builder::{Serialized, TransactionBuilder};
+use sui_transaction_builder::Argument;
+use sui_transaction_builder::TransactionBuilder;
 
 pub enum Arg<T> {
     Resolved(Argument),
@@ -46,10 +45,10 @@ impl<T: MoveType> From<T> for Arg<T> {
 impl<T> Arg<T> {
     pub fn resolve_arg(self, builder: &mut TransactionBuilder) -> Self
     where
-        T: ToInput,
+        T: Serialize,
     {
         match self {
-            Arg::Raw(value) => Self::Resolved(builder.input(value.to_input())),
+            Arg::Raw(value) => Self::Resolved(builder.pure::<T>(&value)),
             _ => self,
         }
     }
@@ -71,10 +70,10 @@ impl<T> Arg<T> {
 impl<T> Ref<'_, T> {
     pub fn resolve_arg(self, builder: &mut TransactionBuilder) -> Self
     where
-        T: ToInput,
+        T: Serialize,
     {
         match self {
-            Ref::Raw(value) => Self::Resolved(builder.input(value.to_input())),
+            Ref::Raw(value) => Self::Resolved(builder.pure::<T>(value)),
             _ => self,
         }
     }
@@ -83,10 +82,10 @@ impl<T> Ref<'_, T> {
 impl<T> MutRef<'_, T> {
     pub fn resolve_arg(self, builder: &mut TransactionBuilder) -> Self
     where
-        T: ToInput,
+        T: Serialize,
     {
         match self {
-            MutRef::Raw(value) => Self::Resolved(builder.input(value.to_input())),
+            MutRef::Raw(value) => Self::Resolved(builder.pure::<T>(value)),
             _ => self,
         }
     }
@@ -113,15 +112,5 @@ impl<T> From<Ref<'_, T>> for Argument {
             Ref::Resolved(arg) => arg,
             Ref::Raw(_) => panic!("Cannot use unresolved arg"),
         }
-    }
-}
-
-pub trait ToInput {
-    fn to_input(&self) -> Input;
-}
-
-impl<T: MoveType + Serialize> ToInput for T {
-    fn to_input(&self) -> Input {
-        Serialized(self).into()
     }
 }
