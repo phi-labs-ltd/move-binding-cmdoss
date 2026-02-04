@@ -1,9 +1,10 @@
 ---
 source: move-binding/tests/snapshot_tests.rs
+assertion_line: 28
 expression: pretty
 ---
 pub mod bridge {
-    pub const PACKAGE_VERSION: u64 = 6u64;
+    pub const PACKAGE_VERSION: u64 = 7u64;
     pub mod bridge {
         use std::str::FromStr;
         use move_binding_derive::{MoveStruct, Key};
@@ -60,6 +61,24 @@ pub mod bridge {
             pub amount: u64,
         }
         impl TokenDepositedEvent {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 11u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct TokenDepositedEventV2 {
+            pub seq_num: u64,
+            pub source_chain: u8,
+            pub sender_address: Vec<u8>,
+            pub target_chain: u8,
+            pub target_address: Vec<u8>,
+            pub token_type: u8,
+            pub amount: u64,
+            pub timestamp_ms: u64,
+        }
+        impl TokenDepositedEventV2 {
             pub const TYPE_ORIGIN_ID: Address = Address::new([
                 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
                 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
@@ -155,11 +174,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -175,11 +194,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("init_bridge_committee").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("init_bridge_committee").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -197,11 +216,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("committee_registration").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("committee_registration").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 );
         }
@@ -215,11 +234,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_node_url").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_node_url").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -237,11 +256,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("register_foreign_token").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("register_foreign_token").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 );
         }
@@ -259,12 +278,36 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("send_token").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("send_token").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
+                );
+        }
+        pub fn send_token_v2<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::bridge::bridge::Bridge>,
+            p1: Arg<u8>,
+            p2: Arg<Vec<u8>>,
+            p3: Arg<crate::sui::coin::Coin<T0>>,
+            p4: Ref<'a, crate::sui::clock::Clock>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            let p3 = p3.resolve_arg(builder);
+            let p4 = p4.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("send_token_v2").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into(), p2.into(), p3.into(), p4.into()],
                 );
         }
         pub fn approve_token_transfer<'a>(
@@ -279,11 +322,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("approve_token_transfer").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("approve_token_transfer").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -301,11 +344,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("claim_token").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("claim_token").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 )
                 .into()
@@ -324,11 +367,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("claim_and_transfer_token").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("claim_and_transfer_token").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 );
         }
@@ -344,11 +387,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_system_message").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_system_message").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -364,12 +407,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_token_transfer_action_status")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_token_transfer_action_status")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -386,12 +429,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_token_transfer_action_signatures")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_token_transfer_action_signatures")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -404,11 +447,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("load_inner").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("load_inner").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -421,11 +464,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("load_inner_mut").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("load_inner_mut").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -444,14 +487,36 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("claim_token_internal").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("claim_token_internal").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 )
                 .into()
+        }
+        pub fn send_token_internal<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::bridge::bridge::BridgeInner>,
+            p1: Arg<u8>,
+            p2: Arg<crate::sui::coin::Coin<T0>>,
+            p3: Arg<crate::bridge::message::BridgeMessage>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            let p3 = p3.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("send_token_internal").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into(), p2.into(), p3.into()],
+                );
         }
         pub fn execute_emergency_op<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
@@ -463,11 +528,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_emergency_op").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_emergency_op").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -481,11 +546,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_update_bridge_limit").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_update_bridge_limit").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -499,11 +564,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_update_asset_price").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_update_asset_price").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -517,11 +582,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_add_tokens_on_sui").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_add_tokens_on_sui").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -535,12 +600,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_current_seq_num_and_increment")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_current_seq_num_and_increment")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -557,12 +622,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_parsed_token_transfer_message")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_parsed_token_transfer_message")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -597,11 +662,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sui_mainnet").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sui_mainnet").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -612,11 +677,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sui_testnet").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sui_testnet").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -627,11 +692,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sui_custom").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sui_custom").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -642,11 +707,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("eth_mainnet").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("eth_mainnet").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -657,11 +722,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("eth_sepolia").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("eth_sepolia").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -672,11 +737,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("eth_custom").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("eth_custom").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -689,11 +754,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("route_source").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("route_source").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -706,11 +771,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("route_destination").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("route_destination").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -723,11 +788,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("assert_valid_chain_id").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("assert_valid_chain_id").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 );
         }
@@ -737,11 +802,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("valid_routes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("valid_routes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -756,11 +821,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_valid_route").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_valid_route").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -775,11 +840,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_route").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_route").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -894,11 +959,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("verify_signatures").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("verify_signatures").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -908,11 +973,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -931,11 +996,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("register").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("register").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 );
         }
@@ -951,11 +1016,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_create_next_committee").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_create_next_committee").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -969,11 +1034,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("execute_blocklist").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("execute_blocklist").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -991,11 +1056,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("committee_members").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("committee_members").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1010,11 +1075,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_node_url").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_node_url").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1028,11 +1093,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("check_uniqueness_bridge_keys").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("check_uniqueness_bridge_keys").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1056,11 +1121,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("ecdsa_pub_key_to_eth_address").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("ecdsa_pub_key_to_eth_address").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1132,11 +1197,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_route_limit").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_route_limit").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1147,11 +1212,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("new").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("new").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -1172,12 +1237,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("check_and_record_sending_transfer")
-                            .unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("check_and_record_sending_transfer")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into(), p4.into()],
                 )
                 .into()
@@ -1194,11 +1259,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_route_limit").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_route_limit").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -1210,11 +1275,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("current_hour_since_epoch").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("current_hour_since_epoch").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1229,11 +1294,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("adjust_transfer_records").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("adjust_transfer_records").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1245,11 +1310,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("initial_transfer_limits").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("initial_transfer_limits").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -1303,6 +1368,22 @@ pub mod bridge {
             pub amount: u64,
         }
         impl TokenTransferPayload {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 11u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct TokenTransferPayloadV2 {
+            pub sender_address: Vec<u8>,
+            pub target_chain: u8,
+            pub target_address: Vec<u8>,
+            pub token_type: u8,
+            pub amount: u64,
+            pub timestamp_ms: u64,
+        }
+        impl TokenTransferPayloadV2 {
             pub const TYPE_ORIGIN_ID: Address = Address::new([
                 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
                 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
@@ -1394,11 +1475,46 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_token_bridge_payload").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_token_bridge_payload").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn extract_token_bridge_payload_v2<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::bridge::message::BridgeMessage>,
+        ) -> Arg<crate::bridge::message::TokenTransferPayloadV2> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_token_bridge_payload_v2")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn to_token_payload_v1<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::bridge::message::TokenTransferPayloadV2>,
+        ) -> Arg<crate::bridge::message::TokenTransferPayload> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_token_payload_v1").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1411,11 +1527,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_emergency_op_payload").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_emergency_op_payload").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1428,11 +1544,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_blocklist_payload").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_blocklist_payload").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1445,11 +1561,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_update_bridge_limit").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_update_bridge_limit").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1462,11 +1578,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_update_asset_price").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_update_asset_price").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1479,11 +1595,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract_add_tokens_on_sui").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract_add_tokens_on_sui").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1496,11 +1612,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("serialize_message").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("serialize_message").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1525,14 +1641,49 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_token_bridge_message").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_token_bridge_message").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![
                         p0.into(), p1.into(), p2.into(), p3.into(), p4.into(), p5.into(),
                         p6.into()
+                    ],
+                )
+                .into()
+        }
+        pub fn create_token_bridge_message_v2(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u64>,
+            p2: Arg<Vec<u8>>,
+            p3: Arg<u8>,
+            p4: Arg<Vec<u8>>,
+            p5: Arg<u8>,
+            p6: Arg<u64>,
+            p7: Arg<u64>,
+        ) -> Arg<crate::bridge::message::BridgeMessage> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            let p3 = p3.resolve_arg(builder);
+            let p4 = p4.resolve_arg(builder);
+            let p5 = p5.resolve_arg(builder);
+            let p6 = p6.resolve_arg(builder);
+            let p7 = p7.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_token_bridge_message_v2")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![
+                        p0.into(), p1.into(), p2.into(), p3.into(), p4.into(), p5.into(),
+                        p6.into(), p7.into()
                     ],
                 )
                 .into()
@@ -1549,11 +1700,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_emergency_op_message").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_emergency_op_message").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -1572,11 +1723,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_blocklist_message").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_blocklist_message").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 )
                 .into()
@@ -1595,12 +1746,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_update_bridge_limit_message")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_update_bridge_limit_message")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 )
                 .into()
@@ -1619,12 +1770,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_update_asset_price_message")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_update_asset_price_message")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 )
                 .into()
@@ -1647,12 +1798,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_add_tokens_on_sui_message")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_add_tokens_on_sui_message")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![
                         p0.into(), p1.into(), p2.into(), p3.into(), p4.into(), p5.into()
                     ],
@@ -1671,11 +1822,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_key").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_key").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -1688,11 +1839,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("key").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("key").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1705,11 +1856,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("message_version").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("message_version").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1722,11 +1873,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("message_type").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("message_type").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1739,11 +1890,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("seq_num").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("seq_num").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1756,11 +1907,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("source_chain").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("source_chain").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1773,11 +1924,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("payload").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("payload").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1790,11 +1941,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_target_chain").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_target_chain").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1807,11 +1958,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_target_address").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_target_address").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1824,11 +1975,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_type").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_type").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1841,11 +1992,28 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_amount").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_amount").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn timestamp_ms<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::bridge::message::TokenTransferPayloadV2>,
+        ) -> Arg<u64> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("timestamp_ms").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1858,11 +2026,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("emergency_op_type").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("emergency_op_type").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1875,11 +2043,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("blocklist_type").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("blocklist_type").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1892,11 +2060,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("blocklist_validator_addresses").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("blocklist_validator_addresses")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1909,12 +2078,14 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_bridge_limit_payload_sending_chain")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str(
+                                    "update_bridge_limit_payload_sending_chain",
+                                )
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1927,14 +2098,14 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str(
-                                "update_bridge_limit_payload_receiving_chain",
-                            )
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str(
+                                    "update_bridge_limit_payload_receiving_chain",
+                                )
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1947,12 +2118,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_bridge_limit_payload_limit")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_bridge_limit_payload_limit")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1965,12 +2136,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_asset_price_payload_token_id")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_asset_price_payload_token_id")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1983,12 +2154,12 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_asset_price_payload_new_price")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_asset_price_payload_new_price")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2001,11 +2172,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_native").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_native").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2018,11 +2189,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_ids").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_ids").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2035,11 +2206,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_type_names").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_type_names").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2052,11 +2223,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_prices").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_prices").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2067,11 +2238,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("emergency_op_pause").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("emergency_op_pause").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2082,11 +2253,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("emergency_op_unpause").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("emergency_op_unpause").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2099,11 +2270,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("required_voting_power").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("required_voting_power").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2116,13 +2287,29 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_parsed_token_transfer_message")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_parsed_token_transfer_message")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn token_transfer_message_version(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<u8> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_transfer_message_version")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
                 )
                 .into()
         }
@@ -2134,11 +2321,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("reverse_bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("reverse_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2151,11 +2338,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("peel_u64_be").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("peel_u64_be").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2178,11 +2365,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2193,11 +2380,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("committee_blocklist").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("committee_blocklist").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2208,11 +2395,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("emergency_op").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("emergency_op").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2223,11 +2410,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_bridge_limit").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_bridge_limit").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2238,11 +2425,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_asset_price").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_asset_price").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2253,11 +2440,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("add_tokens_on_sui").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("add_tokens_on_sui").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2366,11 +2553,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("token_id").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("token_id").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2383,11 +2570,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("decimal_multiplier").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("decimal_multiplier").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2400,11 +2587,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("notional_value").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("notional_value").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2423,11 +2610,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("register_foreign_token").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("register_foreign_token").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into()],
                 );
         }
@@ -2447,11 +2634,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("add_new_token").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("add_new_token").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into(), p3.into(), p4.into()],
                 );
         }
@@ -2461,11 +2648,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -2480,11 +2667,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("burn").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("burn").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -2498,11 +2685,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("mint").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("mint").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2519,11 +2706,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("update_asset_notional_price").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("update_asset_notional_price").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -2535,11 +2722,11 @@ pub mod bridge {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_token_metadata").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_token_metadata").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()

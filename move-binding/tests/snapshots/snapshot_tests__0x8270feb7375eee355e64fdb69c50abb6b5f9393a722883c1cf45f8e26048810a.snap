@@ -1,5 +1,6 @@
 ---
 source: move-binding/tests/snapshot_tests.rs
+assertion_line: 28
 expression: pretty
 ---
 pub mod wal {
@@ -56,11 +57,11 @@ pub mod wal {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("init").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("init").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 );
         }
@@ -72,11 +73,11 @@ pub mod wal {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("total_supply").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("total_supply").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -91,11 +92,11 @@ pub mod wal {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("burn").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("burn").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -107,11 +108,11 @@ pub mod wal {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_cap").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_cap").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -124,11 +125,11 @@ pub mod wal {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_cap_mut").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_cap_mut").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()

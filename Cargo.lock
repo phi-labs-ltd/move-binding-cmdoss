@@ -738,7 +738,7 @@ dependencies = [
 [[package]]
 name = "enum-compat-util"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=363bb937dce4962f449b33bc061bc5e20aaa2994#363bb937dce4962f449b33bc061bc5e20aaa2994"
+source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
 dependencies = [
  "serde_yaml",
 ]
@@ -1624,12 +1624,12 @@ dependencies = [
 [[package]]
 name = "move-abstract-interpreter"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=363bb937dce4962f449b33bc061bc5e20aaa2994#363bb937dce4962f449b33bc061bc5e20aaa2994"
+source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
 
 [[package]]
 name = "move-binary-format"
 version = "0.0.3"
-source = "git+https://github.com/MystenLabs/sui.git?rev=363bb937dce4962f449b33bc061bc5e20aaa2994#363bb937dce4962f449b33bc061bc5e20aaa2994"
+source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
 dependencies = [
  "anyhow",
  "enum-compat-util",
@@ -1688,7 +1688,7 @@ dependencies = [
 [[package]]
 name = "move-core-types"
 version = "0.0.4"
-source = "git+https://github.com/MystenLabs/sui.git?rev=363bb937dce4962f449b33bc061bc5e20aaa2994#363bb937dce4962f449b33bc061bc5e20aaa2994"
+source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
 dependencies = [
  "anyhow",
  "bcs",
@@ -1699,7 +1699,6 @@ dependencies = [
  "leb128",
  "move-proc-macros",
  "num",
- "once_cell",
  "primitive-types",
  "rand 0.8.5",
  "ref-cast",
@@ -1713,7 +1712,7 @@ dependencies = [
 [[package]]
 name = "move-proc-macros"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=363bb937dce4962f449b33bc061bc5e20aaa2994#363bb937dce4962f449b33bc061bc5e20aaa2994"
+source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
 dependencies = [
  "enum-compat-util",
  "quote",

@@ -4,7 +4,7 @@ assertion_line: 28
 expression: pretty
 ---
 pub mod move_lib {
-    pub const PACKAGE_VERSION: u64 = 19u64;
+    pub const PACKAGE_VERSION: u64 = 21u64;
     pub mod address {
         use std::str::FromStr;
         use move_binding_derive::{MoveStruct, Key};
@@ -22,11 +22,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("length").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("length").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 )
                 .into()
@@ -73,11 +73,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("char").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("char").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -90,11 +90,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -107,11 +107,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -124,11 +124,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("all_characters_printable").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("all_characters_printable").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -143,11 +143,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("push_char").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("push_char").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -159,11 +159,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pop_char").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pop_char").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -176,11 +176,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("length").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("length").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -195,11 +195,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("append").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("append").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -215,11 +215,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("insert").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("insert").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -235,11 +235,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("substring").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("substring").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -252,11 +252,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("as_bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("as_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -269,11 +269,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("into_bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("into_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -286,11 +286,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("byte").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("byte").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -303,11 +303,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_valid_char").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_valid_char").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -320,11 +320,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_printable_char").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_printable_char").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -337,11 +337,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_empty").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_empty").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -354,11 +354,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_uppercase").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_uppercase").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -371,11 +371,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_lowercase").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_lowercase").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -390,11 +390,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("index_of").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("index_of").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -407,11 +407,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("char_to_uppercase").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("char_to_uppercase").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -424,11 +424,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("char_to_lowercase").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("char_to_lowercase").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -453,11 +453,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_bytes").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -494,11 +494,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("new").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("new").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -513,11 +513,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("set").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("set").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -531,11 +531,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("unset").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("unset").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -549,11 +549,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("shift_left").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("shift_left").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -567,11 +567,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_index_set").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_index_set").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -584,11 +584,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("length").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("length").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -603,12 +603,12 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("longest_set_sequence_starting_at")
-                            .unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("longest_set_sequence_starting_at")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -633,11 +633,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("print").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("print").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 );
         }
@@ -647,11 +647,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("print_stack_trace").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("print_stack_trace").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![],
                 );
         }
@@ -688,11 +688,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("multiply_u64").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("multiply_u64").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -707,11 +707,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_u64").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_u64").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -726,11 +726,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_from_rational").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_from_rational").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -743,11 +743,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("create_from_raw_value").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create_from_raw_value").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -760,11 +760,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_raw_value").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_raw_value").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -777,11 +777,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_zero").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_zero").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -806,11 +806,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sha2_256").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sha2_256").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -823,12 +823,51 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sha3_256").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sha3_256").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+    }
+    pub mod internal {
+        use std::str::FromStr;
+        use move_binding_derive::{MoveStruct, Key};
+        use move_types::{MoveType, Address, Identifier, ObjectId};
+        use move_types::functions::{Arg, Ref, MutRef};
+        pub const PACKAGE_ID: Address = Address::new([
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 1u8,
+        ]);
+        pub const MODULE_NAME: &str = "internal";
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct Permit<T0> {
+            pub dummy_field: bool,
+            phantom_data_0: std::marker::PhantomData<T0>,
+        }
+        impl<T0> Permit<T0> {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 1u8,
+            ]);
+        }
+        pub fn permit<T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<crate::move_lib::internal::Permit<T0>> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("permit").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![],
                 )
                 .into()
         }
@@ -861,11 +900,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("none").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("none").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -878,11 +917,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("some").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("some").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -895,11 +934,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_none").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_none").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -912,11 +951,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_some").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_some").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -931,11 +970,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("contains").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("contains").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -948,11 +987,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -967,11 +1006,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_with_default").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_with_default").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -986,11 +1025,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_with_default").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_with_default").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1005,11 +1044,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("fill").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("fill").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1021,11 +1060,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("extract").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("extract").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1038,11 +1077,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_mut").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_mut").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1057,11 +1096,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("swap").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("swap").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1076,11 +1115,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("swap_or_fill").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("swap_or_fill").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1095,11 +1134,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("destroy_with_default").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy_with_default").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1112,11 +1151,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("destroy_some").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy_some").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1129,11 +1168,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("destroy_none").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy_none").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 );
         }
@@ -1145,11 +1184,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_vec").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_vec").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1185,11 +1224,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("utf8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("utf8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1202,11 +1241,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_ascii").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_ascii").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1219,11 +1258,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_ascii").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_ascii").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1236,11 +1275,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_utf8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_utf8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1253,11 +1292,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("as_bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("as_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1270,11 +1309,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("into_bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("into_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1287,11 +1326,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_empty").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_empty").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1304,11 +1343,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("length").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("length").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1323,11 +1362,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("append").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("append").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1341,11 +1380,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("append_utf8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("append_utf8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -1361,11 +1400,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("insert").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("insert").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -1381,11 +1420,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("substring").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("substring").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -1400,11 +1439,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("index_of").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("index_of").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1417,11 +1456,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("internal_check_utf8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("internal_check_utf8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1436,11 +1475,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("internal_is_char_boundary").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("internal_is_char_boundary").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1457,11 +1496,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("internal_sub_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("internal_sub_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -1476,11 +1515,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("internal_index_of").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("internal_index_of").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1493,11 +1532,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bytes").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1514,11 +1553,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sub_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sub_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
                 )
                 .into()
@@ -1552,11 +1591,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("with_defining_ids").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("with_defining_ids").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1567,11 +1606,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("with_original_ids").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("with_original_ids").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1582,11 +1621,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("defining_id").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("defining_id").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1597,11 +1636,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("original_id").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("original_id").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1614,11 +1653,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_primitive").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_primitive").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1631,11 +1670,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("as_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("as_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1648,11 +1687,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("address_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("address_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1665,11 +1704,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("module_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("module_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1682,11 +1721,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("into_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("into_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1697,11 +1736,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1712,11 +1751,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_with_original_ids").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_with_original_ids").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -1729,11 +1768,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1746,11 +1785,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_address").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_address").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1763,11 +1802,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("get_module").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_module").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1792,11 +1831,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1811,11 +1850,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1830,11 +1869,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1849,11 +1888,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1868,11 +1907,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1887,11 +1926,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -1904,11 +1943,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sqrt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sqrt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1921,11 +1960,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1938,11 +1977,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u16").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u16").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1955,11 +1994,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u32").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u32").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1972,11 +2011,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u64").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u64").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -1989,12 +2028,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2018,11 +2133,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2037,11 +2152,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2056,11 +2171,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2075,11 +2190,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2094,11 +2209,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2113,11 +2228,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2130,11 +2245,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sqrt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sqrt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2147,11 +2262,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2164,12 +2279,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2193,11 +2384,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2212,11 +2403,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2231,11 +2422,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2250,11 +2441,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2269,11 +2460,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2288,11 +2479,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2305,11 +2496,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2322,11 +2513,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u16").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u16").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2339,11 +2530,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u32").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u32").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2356,11 +2547,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u64").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u64").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2373,11 +2564,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u128").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u128").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2390,12 +2581,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2419,11 +2686,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2438,11 +2705,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2457,11 +2724,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2476,11 +2743,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2495,11 +2762,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2514,11 +2781,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2531,11 +2798,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sqrt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sqrt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2548,11 +2815,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2565,11 +2832,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u16").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u16").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2582,12 +2849,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2611,11 +2954,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2630,11 +2973,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2649,11 +2992,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2668,11 +3011,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2687,11 +3030,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2706,11 +3049,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2723,11 +3066,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sqrt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sqrt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2740,11 +3083,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u8").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u8").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2757,11 +3100,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u16").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u16").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2774,11 +3117,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("try_as_u32").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("try_as_u32").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2791,12 +3134,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2820,11 +3239,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("bitwise_not").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("bitwise_not").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2839,11 +3258,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("max").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("max").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2858,11 +3277,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("min").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("min").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2877,11 +3296,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("diff").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("diff").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2896,11 +3315,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("divide_and_round_up").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("divide_and_round_up").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2915,11 +3334,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pow").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pow").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -2932,11 +3351,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sqrt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sqrt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -2949,12 +3368,88 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_string").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn checked_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -2991,11 +3486,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_quotient").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_quotient").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3008,11 +3503,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_int").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_int").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3027,11 +3522,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("add").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3046,11 +3541,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sub").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3065,11 +3560,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("mul").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3084,11 +3579,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("div").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3101,11 +3596,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_int").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_int").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3120,11 +3615,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("int_mul").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("int_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3139,11 +3634,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("int_div").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("int_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3158,11 +3653,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("le").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("le").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3177,11 +3672,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("lt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3196,11 +3691,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("ge").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("ge").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3215,11 +3710,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("gt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("gt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3232,11 +3727,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_raw").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_raw").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3249,11 +3744,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_raw").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_raw").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3291,11 +3786,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_quotient").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_quotient").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3308,11 +3803,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_int").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_int").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3327,11 +3822,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("add").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3346,11 +3841,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("sub").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3365,11 +3860,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("mul").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3384,11 +3879,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("div").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3401,11 +3896,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_int").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_int").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3420,11 +3915,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("int_mul").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("int_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3439,11 +3934,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("int_div").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("int_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3458,11 +3953,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("le").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("le").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3477,11 +3972,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("lt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3496,11 +3991,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("ge").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("ge").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3515,11 +4010,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("gt").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("gt").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3532,11 +4027,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("to_raw").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("to_raw").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3549,11 +4044,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("from_raw").unwrap(),
-                        vec![],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("from_raw").unwrap(),
+                        )
+                        .with_type_args(vec![]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3576,11 +4071,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("empty").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("empty").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![],
                 )
                 .into()
@@ -3593,11 +4088,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("length").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("length").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3612,11 +4107,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3631,11 +4126,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("push_back").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("push_back").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -3649,11 +4144,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("borrow_mut").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("borrow_mut").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3666,11 +4161,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("pop_back").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("pop_back").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3683,11 +4178,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("destroy_empty").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy_empty").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 );
         }
@@ -3703,11 +4198,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("swap").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("swap").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -3719,11 +4214,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("singleton").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("singleton").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3736,11 +4231,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("reverse").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("reverse").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 );
         }
@@ -3754,11 +4249,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("append").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("append").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 );
         }
@@ -3770,11 +4265,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("is_empty").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("is_empty").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
@@ -3789,11 +4284,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("contains").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("contains").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3808,11 +4303,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("index_of").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("index_of").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3827,11 +4322,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("remove").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("remove").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3848,11 +4343,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("insert").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("insert").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into()],
                 );
         }
@@ -3866,11 +4361,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("swap_remove").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("swap_remove").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3885,11 +4380,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("skip").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("skip").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3904,11 +4399,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("take").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("take").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
@@ -3921,11 +4416,11 @@ pub mod move_lib {
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
-                        PACKAGE_ID,
-                        Identifier::from_str(MODULE_NAME).unwrap(),
-                        Identifier::from_str("flatten").unwrap(),
-                        vec![T0::type_()],
-                    ),
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("flatten").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
                     vec![p0.into()],
                 )
                 .into()
