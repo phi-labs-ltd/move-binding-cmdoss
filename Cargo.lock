@@ -1660,7 +1660,7 @@ dependencies = [
  "quote",
  "reqwest",
  "serde_json",
- "sui-sdk-types",
+ "sui-sdk-types 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 2.0.106",
 ]
 
@@ -1677,8 +1677,8 @@ dependencies = [
  "serde_json",
  "sui-graphql",
  "sui-graphql-macros",
- "sui-rpc",
- "sui-sdk-types",
+ "sui-rpc 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sui-sdk-types 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "sui-transaction-builder",
  "syn 2.0.106",
  "thiserror 2.0.17",
@@ -1725,7 +1725,7 @@ version = "0.1.0"
 dependencies = [
  "move-core-types",
  "serde",
- "sui-sdk-types",
+ "sui-sdk-types 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "sui-transaction-builder",
  "thiserror 2.0.17",
 ]
@@ -2926,11 +2926,18 @@ checksum = "734676eb262c623cec13c3155096e08d1f8f29adce39ba17948b18dad1e54142"
 [[package]]
 name = "sui-graphql"
 version = "0.0.1"
-source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=c9105cd4028ae4dc5de4c612d25f4d476358a4b2#c9105cd4028ae4dc5de4c612d25f4d476358a4b2"
+source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3#e09fc80f2c662c033214ea24da0696818a30c3d3"
 dependencies = [
+ "base64ct",
+ "bcs",
+ "chrono",
+ "futures",
  "reqwest",
  "serde",
  "serde_json",
+ "sui-graphql-macros",
+ "sui-rpc 0.2.2 (git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3)",
+ "sui-sdk-types 0.2.2 (git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3)",
  "thiserror 1.0.69",
  "url",
 ]
@@ -2938,7 +2945,7 @@ dependencies = [
 [[package]]
 name = "sui-graphql-macros"
 version = "0.0.1"
-source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=c9105cd4028ae4dc5de4c612d25f4d476358a4b2#c9105cd4028ae4dc5de4c612d25f4d476358a4b2"
+source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3#e09fc80f2c662c033214ea24da0696818a30c3d3"
 dependencies = [
  "darling 0.20.11",
  "graphql-parser",
@@ -2962,7 +2969,28 @@ dependencies = [
  "prost-types",
  "serde",
  "serde_json",
- "sui-sdk-types",
+ "sui-sdk-types 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tap",
+ "tokio",
+ "tonic",
+ "tonic-prost",
+]
+
+[[package]]
+name = "sui-rpc"
+version = "0.2.2"
+source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3#e09fc80f2c662c033214ea24da0696818a30c3d3"
+dependencies = [
+ "base64",
+ "bcs",
+ "bytes",
+ "futures",
+ "http",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "sui-sdk-types 0.2.2 (git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3)",
  "tap",
  "tokio",
  "tonic",
@@ -2992,6 +3020,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "sui-sdk-types"
+version = "0.2.2"
+source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=e09fc80f2c662c033214ea24da0696818a30c3d3#e09fc80f2c662c033214ea24da0696818a30c3d3"
+dependencies = [
+ "base64ct",
+ "bcs",
+ "blake2",
+ "bnum",
+ "bs58 0.5.1",
+ "bytes",
+ "bytestring",
+ "itertools 0.14.0",
+ "roaring",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_with",
+ "winnow 0.7.13",
+]
+
+[[package]]
 name = "sui-transaction-builder"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3000,8 +3049,8 @@ dependencies = [
  "async-trait",
  "bcs",
  "serde",
- "sui-rpc",
- "sui-sdk-types",
+ "sui-rpc 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sui-sdk-types 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "thiserror 2.0.17",
 ]
 

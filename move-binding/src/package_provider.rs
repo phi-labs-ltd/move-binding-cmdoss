@@ -70,8 +70,14 @@ impl ModuleProvider for MoveModuleProvider {
         }
 
         let module_bcs: String =
-            serde_json::from_value(value["data"]["package"]["moduleBcs"].clone())
-                .map_err(|e| anyhow::anyhow!("Failed to parse moduleBcs for package {}: {}. Response: {:?}", package_id, e, value))?;
+            serde_json::from_value(value["data"]["package"]["moduleBcs"].clone()).map_err(|e| {
+                anyhow::anyhow!(
+                    "Failed to parse moduleBcs for package {}: {}. Response: {:?}",
+                    package_id,
+                    e,
+                    value
+                )
+            })?;
         let module_bytes = Base64::decode(&module_bcs).unwrap();
         let module_map: BTreeMap<String, Vec<u8>> = bcs::from_bytes(&module_bytes).unwrap();
 
@@ -98,10 +104,10 @@ impl ModuleProvider for MoveModuleProvider {
                     v["definingId"].as_str(),
                 ) {
                     if let Ok(addr) = AccountAddress::from_str(defining_id) {
-                        results.entry(module.to_string()).or_default().insert(
-                            struct_.to_string(),
-                            addr,
-                        );
+                        results
+                            .entry(module.to_string())
+                            .or_default()
+                            .insert(struct_.to_string(), addr);
                     }
                 }
                 results

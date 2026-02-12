@@ -285,17 +285,18 @@ impl MoveCodegen {
     }
 
     fn create_fun(fun_name: &str, fun: &Function<Identifier>) -> Option<TokenStream> {
-        let (param_names, mut params, need_lifetime) = fun.parameters
-            .iter()
-            .enumerate()
-            .fold((vec![], vec![], false), |(mut param_names, mut params, mut lifetime), (i, move_type)| {
+        let (param_names, mut params, need_lifetime) = fun.parameters.iter().enumerate().fold(
+            (vec![], vec![], false),
+            |(mut param_names, mut params, mut lifetime), (i, move_type)| {
                 let field_ident = Ident::new(&format!("p{i}"), proc_macro2::Span::call_site());
                 lifetime = lifetime || move_type.is_ref();
                 match &**move_type {
                     Type::Reference(_is_mut, r) => {
                         // filter out TxContext
                         if let Type::Datatype(datatype) = &**r {
-                            if datatype.module.address == AccountAddress::TWO && datatype.name.as_str() == "TxContext" {
+                            if datatype.module.address == AccountAddress::TWO
+                                && datatype.name.as_str() == "TxContext"
+                            {
                                 return (param_names, params, lifetime);
                             }
                         }
@@ -306,7 +307,8 @@ impl MoveCodegen {
                 let field_type: syn::Type = syn::parse_str(&move_type.to_arg_type()).unwrap();
                 params.push(quote! {#field_ident: #field_type});
                 (param_names, params, lifetime)
-            });
+            },
+        );
         params.insert(
             0,
             quote! {builder: &mut sui_transaction_builder::TransactionBuilder},
