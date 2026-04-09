@@ -744,7 +744,8 @@ dependencies = [
 [[package]]
 name = "enum-compat-util"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
+source = "sparse+https://kellnr.archway.io/api/v1/crates/"
+checksum = "fd8f4bb67ff33ca43a4ac7dc4c38ab337c398dc572ac54b68ee8efc063663631"
 dependencies = [
  "serde_yaml",
 ]
@@ -1630,12 +1631,14 @@ dependencies = [
 [[package]]
 name = "move-abstract-interpreter"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
+source = "sparse+https://kellnr.archway.io/api/v1/crates/"
+checksum = "2bdbc0e63ba4baa583ee6904247521ab73d73e8323dcffc51d741669787c6356"
 
 [[package]]
 name = "move-binary-format"
 version = "0.0.3"
-source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
+source = "sparse+https://kellnr.archway.io/api/v1/crates/"
+checksum = "25f1495b0294734c806d5eac9d1adbc5b8b449fca79863ab8f2cec386ecfa64f"
 dependencies = [
  "anyhow",
  "enum-compat-util",
@@ -1694,7 +1697,8 @@ dependencies = [
 [[package]]
 name = "move-core-types"
 version = "0.0.4"
-source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
+source = "sparse+https://kellnr.archway.io/api/v1/crates/"
+checksum = "d5849d9a268ebeb6ec6a78cbb80772b0ce43c8efa007fa9207ac44e0070f95a3"
 dependencies = [
  "anyhow",
  "bcs",
@@ -1718,7 +1722,8 @@ dependencies = [
 [[package]]
 name = "move-proc-macros"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
+source = "sparse+https://kellnr.archway.io/api/v1/crates/"
+checksum = "a3fbb2b6bb7d7c69a4818141728794355a276ed10979d1cb0975ca1be3c65aec"
 dependencies = [
  "enum-compat-util",
  "quote",

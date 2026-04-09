@@ -16,5 +16,5 @@ sui-transaction-builder = "0.3.0"
 sui-graphql = "0.3.0"
 sui-graphql-macros = "0.3.0"
 sui-rpc = "0.3.0"
-move-core-types = { git = "https://github.com/MystenLabs/sui.git", tag = "mainnet-v1.69.2" }
-move-binary-format = { git = "https://github.com/MystenLabs/sui.git", tag = "mainnet-v1.69.2" }
+move-core-types = { version = "0.0.4", registry = "kellnr" }
+move-binary-format = { version = "0.0.3", registry = "kellnr" }

@@ -3,7 +3,7 @@ name = "move-binding-derive"
 version = "0.1.0"
 authors = ["Mysten Labs <build@mystenlabs.com>"]
 license = "Apache-2.0"
-publish = false
+publish = ["kellnr"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -17,8 +17,8 @@ proc-macro2 = "^1.0.74"
 serde = { workspace = true, features = ["derive"] }
 sui-sdk-types.workspace = true
 sui-transaction-builder.workspace = true
-move-binding = { path = "../move-binding" }
-move-types = { path = "../move-types" }
+move-binding = { path = "../move-binding", version = "0.1.0", registry = "kellnr" }
+move-types = { path = "../move-types", version = "0.1.0", registry = "kellnr" }
 bcs = "0.1.6"
 thiserror.workspace = true
 
