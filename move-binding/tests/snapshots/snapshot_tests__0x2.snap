@@ -4,7 +4,7 @@ assertion_line: 28
 expression: pretty
 ---
 pub mod sui {
-    pub const PACKAGE_VERSION: u64 = 49u64;
+    pub const PACKAGE_VERSION: u64 = 51u64;
     pub mod accumulator {
         use std::str::FromStr;
         use move_binding_derive::{MoveStruct, Key};
@@ -6644,6 +6644,22 @@ pub mod sui {
                 )
                 .into()
         }
+        pub fn destroy<T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<crate::sui::display::Display<T0>>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into()],
+                );
+        }
         pub fn create_internal<'a, T0: move_types::Key>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
         ) -> Arg<crate::sui::display::Display<T0>> {
@@ -6677,6 +6693,401 @@ pub mod sui {
                         )
                         .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into(), p2.into()],
+                );
+        }
+    }
+    pub mod display_registry {
+        use std::str::FromStr;
+        use move_binding_derive::{MoveStruct, Key};
+        use move_types::{MoveType, Address, Identifier, ObjectId};
+        use move_types::functions::{Arg, Ref, MutRef};
+        pub const PACKAGE_ID: Address = Address::new([
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 2u8,
+        ]);
+        pub const MODULE_NAME: &str = "display_registry";
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct, Key)]
+        pub struct DisplayRegistry {
+            pub id: ObjectId,
+        }
+        impl DisplayRegistry {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct, Key)]
+        pub struct SystemMigrationCap {
+            pub id: ObjectId,
+        }
+        impl SystemMigrationCap {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct, Key)]
+        pub struct Display<T0> {
+            pub id: ObjectId,
+            pub fields: crate::sui::vec_map::VecMap<String, String>,
+            pub cap_id: Option<ObjectId>,
+            phantom_data_0: std::marker::PhantomData<T0>,
+        }
+        impl<T0> Display<T0> {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct, Key)]
+        pub struct DisplayCap<T0> {
+            pub id: ObjectId,
+            phantom_data_0: std::marker::PhantomData<T0>,
+        }
+        impl<T0> DisplayCap<T0> {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct DisplayKey<T0> {
+            pub dummy_field: bool,
+            phantom_data_0: std::marker::PhantomData<T0>,
+        }
+        impl<T0> DisplayKey<T0> {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        pub fn new<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::DisplayRegistry>,
+            p1: Arg<crate::move_lib::internal::Permit<T0>>,
+        ) -> Arg<crate::sui::display_registry::Display<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("new").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn new_with_publisher<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::DisplayRegistry>,
+            p1: MutRef<'a, crate::sui::package::Publisher>,
+        ) -> Arg<crate::sui::display_registry::Display<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("new_with_publisher").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn unset<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::Display<T0>>,
+            p1: Ref<'a, crate::sui::display_registry::DisplayCap<T0>>,
+            p2: Arg<String>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("unset").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into(), p2.into()],
+                );
+        }
+        pub fn set<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::Display<T0>>,
+            p1: Ref<'a, crate::sui::display_registry::DisplayCap<T0>>,
+            p2: Arg<String>,
+            p3: Arg<String>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            let p3 = p3.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("set").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into(), p2.into(), p3.into()],
+                );
+        }
+        pub fn clear<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::Display<T0>>,
+            p1: Ref<'a, crate::sui::display_registry::DisplayCap<T0>>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("clear").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                );
+        }
+        pub fn share<T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<crate::sui::display_registry::Display<T0>>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("share").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into()],
+                );
+        }
+        pub fn claim<'a, T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::Display<T0>>,
+            p1: Arg<crate::sui::display::Display<T0>>,
+        ) -> Arg<crate::sui::display_registry::DisplayCap<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("claim").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn claim_with_publisher<'a, T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::Display<T0>>,
+            p1: MutRef<'a, crate::sui::package::Publisher>,
+        ) -> Arg<crate::sui::display_registry::DisplayCap<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("claim_with_publisher").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn system_migration<'a, T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::DisplayRegistry>,
+            p1: Ref<'a, crate::sui::display_registry::SystemMigrationCap>,
+            p2: Arg<Vec<String>>,
+            p3: Arg<Vec<String>>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            let p2 = p2.resolve_arg(builder);
+            let p3 = p3.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("system_migration").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into(), p2.into(), p3.into()],
+                );
+        }
+        pub fn migrate_v1_to_v2<'a, T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::DisplayRegistry>,
+            p1: Arg<crate::sui::display::Display<T0>>,
+        ) -> Arg<crate::sui::display_registry::Display<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("migrate_v1_to_v2").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn destroy_system_migration_cap(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<crate::sui::display_registry::SystemMigrationCap>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("destroy_system_migration_cap").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                );
+        }
+        pub fn transfer_migration_cap(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<crate::sui::display_registry::SystemMigrationCap>,
+            p1: Arg<Address>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("transfer_migration_cap").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                );
+        }
+        pub fn delete_legacy<'a, T0: move_types::Key>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::display_registry::Display<T0>>,
+            p1: Arg<crate::sui::display::Display<T0>>,
+        ) {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("delete_legacy").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into(), p1.into()],
+                );
+        }
+        pub fn fields<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::display_registry::Display<T0>>,
+        ) -> Ref<'a, crate::sui::vec_map::VecMap<String, String>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("fields").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn cap_id<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::display_registry::Display<T0>>,
+        ) -> Arg<Option<ObjectId>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("cap_id").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn migration_cap_receiver(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<Address> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("migration_cap_receiver").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn new_display<'a, T0: MoveType>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui::display_registry::DisplayRegistry>,
+        ) -> Arg<crate::sui::display_registry::Display<T0>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("new_display").unwrap(),
+                        )
+                        .with_type_args(vec![T0::type_()]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn create<'a>(builder: &mut sui_transaction_builder::TransactionBuilder) {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("create").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
                 );
         }
     }
@@ -10812,6 +11223,37 @@ pub mod sui {
                 )
                 .into()
         }
+        pub fn sui_display_registry_object_id(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<ObjectId> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sui_display_registry_object_id")
+                                .unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn sui_display_registry_address(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<Address> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("sui_display_registry_address").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
         pub fn bridge(
             builder: &mut sui_transaction_builder::TransactionBuilder,
         ) -> Arg<ObjectId> {
@@ -12920,6 +13362,372 @@ pub mod sui {
                         .with_type_args(vec![T0::type_()]),
                     vec![p0.into(), p1.into()],
                 );
+        }
+    }
+    pub mod ristretto255 {
+        use std::str::FromStr;
+        use move_binding_derive::{MoveStruct, Key};
+        use move_types::{MoveType, Address, Identifier, ObjectId};
+        use move_types::functions::{Arg, Ref, MutRef};
+        pub const PACKAGE_ID: Address = Address::new([
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+            0u8, 2u8,
+        ]);
+        pub const MODULE_NAME: &str = "ristretto255";
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct Scalar {
+            pub dummy_field: bool,
+        }
+        impl Scalar {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        #[derive(serde::Deserialize, serde::Serialize, Debug, MoveStruct)]
+        pub struct G {
+            pub dummy_field: bool,
+        }
+        impl G {
+            pub const TYPE_ORIGIN_ID: Address = Address::new([
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8,
+                0u8, 0u8, 0u8, 2u8,
+            ]);
+        }
+        pub fn scalar_from_bytes<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, Vec<u8>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_from_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn scalar_from_u64(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_from_u64").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn scalar_zero(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_zero").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn scalar_one(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_one").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn scalar_add<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn scalar_sub<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn scalar_mul<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn scalar_div<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn scalar_neg<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_neg").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn scalar_inv<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("scalar_inv").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn g_from_bytes<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, Vec<u8>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_from_bytes").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn g_identity(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_identity").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn g_generator(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_generator").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![],
+                )
+                .into()
+        }
+        pub fn g_add<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn g_sub<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn g_mul<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn g_div<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<
+                'a,
+                crate::sui::group_ops::Element<crate::sui::ristretto255::Scalar>,
+            >,
+            p1: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn g_neg<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui::group_ops::Element<crate::sui::ristretto255::G>>,
+        ) -> Arg<crate::sui::group_ops::Element<crate::sui::ristretto255::G>> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("g_neg").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
         }
     }
     pub mod sui {

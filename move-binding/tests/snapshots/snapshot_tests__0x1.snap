@@ -4,7 +4,7 @@ assertion_line: 28
 expression: pretty
 ---
 pub mod move_lib {
-    pub const PACKAGE_VERSION: u64 = 21u64;
+    pub const PACKAGE_VERSION: u64 = 22u64;
     pub mod address {
         use std::str::FromStr;
         use move_binding_derive::{MoveStruct, Key};
@@ -1713,6 +1713,23 @@ pub mod move_lib {
                 )
                 .into()
         }
+        pub fn datatype_string<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, String>,
+        ) -> Arg<String> {
+            let p0 = p0.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("datatype_string").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into()],
+                )
+                .into()
+        }
         pub fn into_string(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: Arg<String>,
@@ -2113,6 +2130,158 @@ pub mod move_lib {
                 )
                 .into()
         }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<u128> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<u128> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<u128> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u128>,
+            p1: Arg<u128>,
+        ) -> Arg<Option<u128>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
     }
     pub mod u16 {
         use std::str::FromStr;
@@ -2358,6 +2527,158 @@ pub mod move_lib {
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
                             Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<u16> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<u16> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<u16> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u16>,
+            p1: Arg<u16>,
+        ) -> Arg<Option<u16>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
                         )
                         .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
@@ -2666,6 +2987,120 @@ pub mod move_lib {
                 )
                 .into()
         }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<move_types::U256> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<move_types::U256> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<move_types::U256> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<move_types::U256>,
+            p1: Arg<move_types::U256>,
+        ) -> Arg<Option<move_types::U256>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
     }
     pub mod u32 {
         use std::str::FromStr;
@@ -2928,6 +3363,158 @@ pub mod move_lib {
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
                             Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<u32> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<u32> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<u32> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u32>,
+            p1: Arg<u32>,
+        ) -> Arg<Option<u32>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
                         )
                         .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
@@ -3219,6 +3806,158 @@ pub mod move_lib {
                 )
                 .into()
         }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<u64> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<u64> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<u64> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u64>,
+            p1: Arg<u64>,
+        ) -> Arg<Option<u64>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
     }
     pub mod u8 {
         use std::str::FromStr;
@@ -3447,6 +4186,158 @@ pub mod move_lib {
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
                             Identifier::from_str("checked_div").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_add(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<u8> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_add").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_sub(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<u8> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_sub").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn saturating_mul(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<u8> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("saturating_mul").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn checked_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("checked_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shl(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shl").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_shr(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_shr").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn lossless_div(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Arg<u8>,
+            p1: Arg<u8>,
+        ) -> Arg<Option<u8>> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("lossless_div").unwrap(),
                         )
                         .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
