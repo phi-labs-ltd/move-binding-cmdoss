@@ -1,10 +1,9 @@
 ---
 source: move-binding/tests/snapshot_tests.rs
-assertion_line: 28
 expression: pretty
 ---
 pub mod sui_system {
-    pub const PACKAGE_VERSION: u64 = 28u64;
+    pub const PACKAGE_VERSION: u64 = 29u64;
     pub mod genesis {
         use std::str::FromStr;
         use move_binding_derive::{MoveStruct, Key};
@@ -3754,7 +3753,7 @@ pub mod sui_system {
                 'a,
                 crate::sui_system::sui_system_state_inner::SuiSystemStateInnerV2,
             >,
-            p1: Ref<'a, ObjectId>,
+            p1: Arg<ObjectId>,
         ) -> Ref<
             'a,
             crate::sui::table::Table<
@@ -5557,7 +5556,7 @@ pub mod sui_system {
         pub fn verified_operation_cap_address<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: Ref<'a, crate::sui_system::validator_cap::ValidatorOperationCap>,
-        ) -> Ref<'a, Address> {
+        ) -> Arg<Address> {
             let p0 = p0.resolve_arg(builder);
             builder
                 .move_call(
@@ -5951,24 +5950,6 @@ pub mod sui_system {
                 )
                 .into()
         }
-        pub fn request_set_commission_rate<'a>(
-            builder: &mut sui_transaction_builder::TransactionBuilder,
-            p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Arg<u64>,
-        ) {
-            let p0 = p0.resolve_arg(builder);
-            let p1 = p1.resolve_arg(builder);
-            builder
-                .move_call(
-                    sui_transaction_builder::Function::new(
-                            PACKAGE_ID,
-                            Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("request_set_commission_rate").unwrap(),
-                        )
-                        .with_type_args(vec![]),
-                    vec![p0.into(), p1.into()],
-                );
-        }
         pub fn advance_epoch<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
@@ -6198,7 +6179,7 @@ pub mod sui_system {
         pub fn pool_exchange_rates<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Ref<'a, ObjectId>,
+            p1: Arg<ObjectId>,
         ) -> Ref<
             'a,
             crate::sui::table::Table<
@@ -6223,7 +6204,7 @@ pub mod sui_system {
         pub fn validator_by_pool_id<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Ref<'a, ObjectId>,
+            p1: Arg<ObjectId>,
         ) -> Ref<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
             let p1 = p1.resolve_arg(builder);
@@ -6457,11 +6438,11 @@ pub mod sui_system {
                 )
                 .into()
         }
-        pub fn get_validator_mut<'a>(
+        pub fn any_validator<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
-            p0: MutRef<'a, Vec<crate::sui_system::validator::Validator>>,
+            p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
             p1: Arg<Address>,
-        ) -> MutRef<'a, crate::sui_system::validator::Validator> {
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
             let p1 = p1.resolve_arg(builder);
             builder
@@ -6469,93 +6450,143 @@ pub mod sui_system {
                     sui_transaction_builder::Function::new(
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("get_validator_mut").unwrap(),
+                            Identifier::from_str("any_validator").unwrap(),
                         )
                         .with_type_args(vec![]),
                     vec![p0.into(), p1.into()],
                 )
                 .into()
         }
-        pub fn get_active_or_pending_or_candidate_validator_mut<'a>(
+        pub fn any_validator_mut<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
             p1: Arg<Address>,
-            p2: Arg<bool>,
         ) -> MutRef<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
             let p1 = p1.resolve_arg(builder);
-            let p2 = p2.resolve_arg(builder);
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str(
-                                    "get_active_or_pending_or_candidate_validator_mut",
-                                )
-                                .unwrap(),
+                            Identifier::from_str("any_validator_mut").unwrap(),
                         )
                         .with_type_args(vec![]),
-                    vec![p0.into(), p1.into(), p2.into()],
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
-        pub fn get_validator_mut_with_verified_cap<'a>(
+        pub fn active_validator<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("active_validator").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn active_validator_mut<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Ref<'a, crate::sui_system::validator_cap::ValidatorOperationCap>,
-            p2: Arg<bool>,
+            p1: Arg<Address>,
         ) -> MutRef<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
             let p1 = p1.resolve_arg(builder);
-            let p2 = p2.resolve_arg(builder);
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("get_validator_mut_with_verified_cap")
-                                .unwrap(),
+                            Identifier::from_str("active_validator_mut").unwrap(),
                         )
                         .with_type_args(vec![]),
-                    vec![p0.into(), p1.into(), p2.into()],
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
-        pub fn get_validator_mut_with_ctx<'a>(
+        pub fn pending_validator<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
-            p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
-        ) -> MutRef<'a, crate::sui_system::validator::Validator> {
+            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("get_validator_mut_with_ctx").unwrap(),
+                            Identifier::from_str("pending_validator").unwrap(),
                         )
                         .with_type_args(vec![]),
-                    vec![p0.into()],
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
-        pub fn get_validator_mut_with_ctx_including_candidates<'a>(
+        pub fn pending_validator_mut<'a>(
             builder: &mut sui_transaction_builder::TransactionBuilder,
             p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
         ) -> MutRef<'a, crate::sui_system::validator::Validator> {
             let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
             builder
                 .move_call(
                     sui_transaction_builder::Function::new(
                             PACKAGE_ID,
                             Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str(
-                                    "get_validator_mut_with_ctx_including_candidates",
-                                )
-                                .unwrap(),
+                            Identifier::from_str("pending_validator_mut").unwrap(),
                         )
                         .with_type_args(vec![]),
-                    vec![p0.into()],
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn candidate_validator<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("candidate_validator").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn candidate_validator_mut<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: MutRef<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> MutRef<'a, crate::sui_system::validator::Validator> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("candidate_validator_mut").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -6599,44 +6630,6 @@ pub mod sui_system {
                         )
                         .with_type_args(vec![]),
                     vec![p0.into(), p1.into(), p2.into()],
-                )
-                .into()
-        }
-        pub fn get_active_validator_ref<'a>(
-            builder: &mut sui_transaction_builder::TransactionBuilder,
-            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Arg<Address>,
-        ) -> Ref<'a, crate::sui_system::validator::Validator> {
-            let p0 = p0.resolve_arg(builder);
-            let p1 = p1.resolve_arg(builder);
-            builder
-                .move_call(
-                    sui_transaction_builder::Function::new(
-                            PACKAGE_ID,
-                            Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("get_active_validator_ref").unwrap(),
-                        )
-                        .with_type_args(vec![]),
-                    vec![p0.into(), p1.into()],
-                )
-                .into()
-        }
-        pub fn get_pending_validator_ref<'a>(
-            builder: &mut sui_transaction_builder::TransactionBuilder,
-            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
-            p1: Arg<Address>,
-        ) -> Ref<'a, crate::sui_system::validator::Validator> {
-            let p0 = p0.resolve_arg(builder);
-            let p1 = p1.resolve_arg(builder);
-            builder
-                .move_call(
-                    sui_transaction_builder::Function::new(
-                            PACKAGE_ID,
-                            Identifier::from_str(MODULE_NAME).unwrap(),
-                            Identifier::from_str("get_pending_validator_ref").unwrap(),
-                        )
-                        .with_type_args(vec![]),
-                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }
@@ -7105,6 +7098,44 @@ pub mod sui_system {
                         )
                         .with_type_args(vec![]),
                     vec![p0.into()],
+                )
+                .into()
+        }
+        pub fn get_active_validator_ref<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_active_validator_ref").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
+                )
+                .into()
+        }
+        pub fn get_pending_validator_ref<'a>(
+            builder: &mut sui_transaction_builder::TransactionBuilder,
+            p0: Ref<'a, crate::sui_system::validator_set::ValidatorSet>,
+            p1: Arg<Address>,
+        ) -> Ref<'a, crate::sui_system::validator::Validator> {
+            let p0 = p0.resolve_arg(builder);
+            let p1 = p1.resolve_arg(builder);
+            builder
+                .move_call(
+                    sui_transaction_builder::Function::new(
+                            PACKAGE_ID,
+                            Identifier::from_str(MODULE_NAME).unwrap(),
+                            Identifier::from_str("get_pending_validator_ref").unwrap(),
+                        )
+                        .with_type_args(vec![]),
+                    vec![p0.into(), p1.into()],
                 )
                 .into()
         }

@@ -695,6 +695,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "edit-distance"
+version = "2.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "324d428080b707bac399325341bd61af5ded1b30f33b7c949792ca464733c2d5"
+
+[[package]]
 name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -738,7 +744,7 @@ dependencies = [
 [[package]]
 name = "enum-compat-util"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
+source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
 dependencies = [
  "serde_yaml",
 ]
@@ -1624,12 +1630,12 @@ dependencies = [
 [[package]]
 name = "move-abstract-interpreter"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
+source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
 
 [[package]]
 name = "move-binary-format"
 version = "0.0.3"
-source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
+source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
 dependencies = [
  "anyhow",
  "enum-compat-util",
@@ -1688,7 +1694,7 @@ dependencies = [
 [[package]]
 name = "move-core-types"
 version = "0.0.4"
-source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
+source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
 dependencies = [
  "anyhow",
  "bcs",
@@ -1712,7 +1718,7 @@ dependencies = [
 [[package]]
 name = "move-proc-macros"
 version = "0.1.0"
-source = "git+https://github.com/MystenLabs/sui.git?rev=c7566e601c9a64154850c1cb074a90d7fc11bba4#c7566e601c9a64154850c1cb074a90d7fc11bba4"
+source = "git+https://github.com/MystenLabs/sui.git?tag=mainnet-v1.69.2#33ef98b2337036b06f9da3927715a411dcddfc40"
 dependencies = [
  "enum-compat-util",
  "quote",
@@ -2925,22 +2931,32 @@ checksum = "734676eb262c623cec13c3155096e08d1f8f29adce39ba17948b18dad1e54142"
 
 [[package]]
 name = "sui-graphql"
-version = "0.0.1"
-source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=c9105cd4028ae4dc5de4c612d25f4d476358a4b2#c9105cd4028ae4dc5de4c612d25f4d476358a4b2"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe1b96a65ca4e68a0923d5cbd0f9269afccb2fe9d825f3a5fb9bcc08c196aaba"
 dependencies = [
+ "base64ct",
+ "bcs",
+ "chrono",
+ "futures",
  "reqwest",
  "serde",
  "serde_json",
+ "sui-graphql-macros",
+ "sui-rpc",
+ "sui-sdk-types",
  "thiserror 1.0.69",
  "url",
 ]
 
 [[package]]
 name = "sui-graphql-macros"
-version = "0.0.1"
-source = "git+https://github.com/mystenlabs/sui-rust-sdk?rev=c9105cd4028ae4dc5de4c612d25f4d476358a4b2#c9105cd4028ae4dc5de4c612d25f4d476358a4b2"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd68fd74ae3e7e8d42f6f1275c11b85653b9109fb33423fe55a015389fea5a17"
 dependencies = [
  "darling 0.20.11",
+ "edit-distance",
  "graphql-parser",
  "proc-macro2",
  "quote",
@@ -2949,9 +2965,9 @@ dependencies = [
 
 [[package]]
 name = "sui-rpc"
-version = "0.2.2"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0bb04b65ca3db83c28aebc5066cdfe8e898b49b9cd56aafc523b80e210824a7"
+checksum = "6c1de70a3262b561b3ff0848e43b4feff41c3083e2744e0442c79cb2204e5fd2"
 dependencies = [
  "base64",
  "bcs",
@@ -2971,9 +2987,9 @@ dependencies = [
 
 [[package]]
 name = "sui-sdk-types"
-version = "0.2.2"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "381a36877c9d3beabceb289002784750f7cd1bff93be2d943d3394d343c889bd"
+checksum = "fff64505eccf5b20b3f7f25b609ee176aeac93705187c31a9b8ba08ec93ada76"
 dependencies = [
  "base64ct",
  "bcs",
@@ -2993,12 +3009,13 @@ dependencies = [
 
 [[package]]
 name = "sui-transaction-builder"
-version = "0.2.2"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c53d6cc3c48c1602c3ead73efefaf01df78fb3082bafacde0bd82128871aa02f"
+checksum = "5061ad0ad2585dc29558e6f65d9206a3342b8f1d2693b934530e22c958671c2d"
 dependencies = [
  "async-trait",
  "bcs",
+ "futures",
  "serde",
  "sui-rpc",
  "sui-sdk-types",
